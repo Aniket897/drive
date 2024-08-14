@@ -3,6 +3,7 @@ import cors from "cors";
 import ConnectDb from "./config/db";
 import "dotenv/config";
 import router from "./routes";
+import path from "path";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -16,6 +17,9 @@ app.use(
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })
 );
+
+app.use("/view", express.static(path.join(__dirname, "../uploads")));
+
 app.use(router);
 
 //listning
