@@ -37,13 +37,21 @@ const View = () => {
     );
   }
 
-  if (document?.owner.email === userData?.email) {
-    window.open(document.url, "_blank");
-    return <Navigate to={"/"} />;
+  if (document && !loading) {
+    if (document.owner.email === userData?.email) {
+      window.open(document.url, "_blank");
+      return <Navigate to={"/"} />;
+    }
+
+    if (document.isPublic) {
+      window.open(document.url, "_self");
+      return <Navigate to={"/"} />;
+    } else {
+      return <Navigate to={"/"} />;
+    }
   }
 
-  if (document?.isPublic) {
-    window.open(document.url, "_self");
+  if (!loading && !document) {
     return <Navigate to={"/"} />;
   }
 };
