@@ -23,6 +23,13 @@ const documentSchema = new mongoose.Schema(
       type: String,
       enum: ["image", "pdf", "text"],
     },
+    size: {
+      type: Number,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   {
     timestamps: true,

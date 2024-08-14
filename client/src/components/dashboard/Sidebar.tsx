@@ -1,39 +1,37 @@
-import { Clock, HomeIcon, Star, Trash } from "lucide-react";
+import { HomeIcon, SidebarOpen } from "lucide-react";
 import New from "./New";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const navLinks = [
   {
     label: "Home",
-    href: "",
+    href: "/",
     icon: <HomeIcon size={15} />,
-  },
-  {
-    label: "Recent",
-    href: "",
-    icon: <Clock size={15} />,
-  },
-  {
-    label: "Starred",
-    href: "",
-    icon: <Star size={15} />,
-  },
-  {
-    label: "Trash",
-    href: "",
-    icon: <Trash size={15} />,
   },
 ];
 
 const Sidebar = () => {
+  const [show, setShow] = useState(false);
+
+  const { pathname } = useLocation();
   return (
-    <div className="w-[300px] p-4 space-y-5 bg-[#F8FAFD] h-screen">
+    <div
+      className={`max-md:absolute top-0  z-30 w-[300px] p-4 space-y-5 bg-[#F8FAFD] h-screen ${
+        show ? "left-0" : "-left-[300px]"
+      }`}
+    >
       <div className="flex items-center gap-1 p-4">{logo}</div>
       <New />
       <ul className="space-y-1">
         {navLinks.map((item, index) => {
           return (
             <li key={index}>
-              <div className="flex items-center gap-3 text-[12px] cursor-pointer p-3 px-5 hover:bg-blue-300 rounded-2xl duration-200">
+              <div
+                className={`flex items-center gap-3 text-[12px] cursor-pointer p-3 px-5 hover:bg-blue-300 rounded-2xl duration-200 ${
+                  pathname == item.href && "bg-blue-300"
+                }`}
+              >
                 {item.icon}
                 {item.label}
               </div>
@@ -41,6 +39,16 @@ const Sidebar = () => {
           );
         })}
       </ul>
+      <button
+        onClick={() => {
+          setShow(!show);
+        }}
+        className={`md:hidden absolute top-3 duration-[2s] -right-12 ${
+          show && "left-[290px]"
+        } `}
+      >
+        <SidebarOpen size={25} />
+      </button>
     </div>
   );
 };

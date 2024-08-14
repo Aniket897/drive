@@ -1,13 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { LogOut } from "lucide-react";
+import { logout } from "../../store/slices/authSlice";
+import { toast } from "sonner";
 
 const Profile = () => {
-  const { avatar } = useSelector((state: RootState) => state.auth.userData);
+  const { username } = useSelector((state: RootState) => state.auth.userData);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("logged out successfully");
+  };
   return (
-    <div>
-      <div className="w-[50px] h-[50px] cursor-pointer overflow-hidden border hover:shadow-md rounded-full bg-white">
-        <img src={avatar} alt="" className="w-full h-full object-cover" />
-      </div>
+    <div className="flex items-center gap-3">
+      <p>👋 {username}</p>
+      <button onClick={() => handleLogout()}>
+        <LogOut size={15} />
+      </button>
     </div>
   );
 };
