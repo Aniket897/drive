@@ -1,8 +1,12 @@
-
+import Router from "./routes";
+import { Toaster } from "sonner";
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div>
+      <Toaster richColors closeButton position="top-right" />
+      <Router />
+    </div>
+  );
+};
 
-export default App
+export default App;

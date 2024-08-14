@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
+    default:
+      "https://cdn.pixabay.com/photo/2021/07/02/04/48/user-6380868_640.png",
   },
 });
 
