@@ -1,6 +1,7 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { authSliceType } from "../../types";
 import axios from "../../axios";
+import { toast } from "sonner";
 
 interface loginPayload {
   token: string;
@@ -46,7 +47,11 @@ export function LoginAction(email: string, password: string) {
       });
       console.log(response);
       dispatch(login(response.data));
-    } catch (error) {
+      toast.success("Login suceess");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response.data.message || error?.message;
+      toast.error(errorMessage);
       console.log(error);
     }
   };
@@ -66,7 +71,11 @@ export function RegisterAction(
       });
       console.log(response);
       dispatch(login(response.data));
-    } catch (error) {
+      toast.success("Registaration suceessfull");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response.data.message || error?.message;
+      toast.error(errorMessage);
       console.log(error);
     }
   };
